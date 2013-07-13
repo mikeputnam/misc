@@ -1,0 +1,21 @@
+Code 101 - Python
+Code 101 - Java
+Code 101 - C
+Code 101 - Javascript
+
+
+I/O
+File
+Strings
+Numbers
+"Structures"
+Using External Code
+Persistance (databases, etc)
+
+Objects
+
+Lists
+Dictionaries
+Tuples
+
+
