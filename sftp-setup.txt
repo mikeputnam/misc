@@ -1,0 +1,70 @@
+2013-09-11 22:02 CDT - Mike Putnam - On OpenBSD 5.4 GENERIC.MP#47 i386
+
+*** Initial setup
+
+All steps as root.   su -
+
+1) Identify a location on your disks large enough for your sftp needs
+and as root, create a directory.
+
+mkdir /sftp_jail
+chmod 0755 /sftp_jail
+
+
+2) Edit /etc/ssh/sshd_config.
+    ChrootDirectory is the base directory for the sftp connection.
+    %u gets replaced with the username.
+
+RSAAuthentication yes 
+PubkeyAuthentication yes
+
+#Subsystem  sftp    /usr/libexec/sftp-server 
+Subsystem sftp internal-sftp
+
+Match Group sftp
+    ForceCommand internal-sftp 
+    AllowTcpForwarding no
+    PasswordAuthentication no 
+    ChrootDirectory /sftp_jail/%u
+
+
+3) Restart the sshd to reload the changes to /etc/ssh/sshd_config
+
+/etc/rc.d/sshd restart
+
+
+4) Create a group to assign users to.
+
+groupadd sftp
+
+-----------------------------------------------------------------------
+
+*** Ongoing setup
+
+1) Create a user.
+    -m  Auto-create the home directory 
+    -G  Assign the secondary group "sftp" 
+    -s  Set the user's shell to a non-functional shell. This prevents
+        normal ssh logins but allows sftp logins.
+
+useradd -m -G sftp -s /sbin/nologin loki
+
+
+2) Create directories. First a directory within the base sftp directory
+with the same name as the user you are adding. Permissions should 
+remain inherited from the sftp directory -owned by root:wheel and 0755.
+Next create in and out directories so the user can upload, download,
+and delete files.
+
+cd /sftp_jail
+mkdir loki
+cd loki
+mkdir in
+mkdir out
+chown loki:loki in
+chown loki:loki out
+chmod 0750 in
+chmod 0750 out
+
+
+
