@@ -49,8 +49,9 @@ groupadd sftp
 
 useradd -m -G sftp -s /sbin/nologin loki
 
+2) Add user's ssh pubkey to the ~/.ssh/authorized_keys file
 
-2) Create directories. First a directory within the base sftp directory
+3) Create directories. First a directory within the base sftp directory
 with the same name as the user you are adding. Permissions should 
 remain inherited from the sftp directory -owned by root:wheel and 0755.
 Next create in and out directories so the user can upload, download,
