@@ -1,0 +1,36 @@
+Contents of /etc/init/ever-ping.conf
+===================================
+start on net-device-up IFACE=eth0
+stop on shutdown
+
+respawn
+script
+ping -n 8.8.8.8 | while read pong; do echo "$(date): $pong"; done | tee -a /some/path/ever-ping.log
+end script
+
+Contents of /some/path/ever-ping.sh
+===================================
+prev_line="first line"
+prev_icmp_req="0"
+#tail -f ever-ping.log | while read line;
+tail -f ever-ping.log | grep "Fri Feb 14" | while read line;
+#cat deleteme.txt | while read line;
+do
+    icmp_req=`echo $line | awk '{ print $11; fflush(); }' | sed 's/icmp_req=//'`
+    if [ $(($icmp_req - $prev_icmp_req)) -ne "1" ]; then
+        echo "DROP FROM >>> $prev_line"
+        echo "DROP TO   >>> $line"
+    fi  
+    prev_icmp_req=$icmp_req
+    prev_line=$line
+done
+
+Entry in /etc/logrotate.conf
+===========================
+/some/path/ever-ping.log {
+        copytruncate
+        dateext
+        rotate 14
+        compress
+}
+
