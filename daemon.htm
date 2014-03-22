@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+<title></title>
+<style>
+body
+{
+  position: fixed;
+  bottom: 0px;
+  background-color: black;
+  color: green;
+  font-family: courier new;
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+<div id="sb"></div>
+$ <span id="x"></span>&#9608;
+<script type="text/javascript">
+function bksp(str) {
+    return str.substring(0, str.length - 1);
+}
+function clear() {
+    document.getElementById("sb").innerHTML = "";
+}
+function scroll(str) {
+    var sb = document.createElement("div");
+    //var t = document.createTextNode(str);
+    var t = document.createElement("span");
+    t.innerHTML = str;
+    sb.setAttribute("id","sbl");
+    sb.appendChild(t);
+    document.getElementById("sb").appendChild(sb);
+}
+function z(e){
+    var evtobj = window.event ? event : e
+    var unicode = evtobj.charCode ? evtobj.charCode : evtobj.keyCode
+    if (unicode == 8) { //Backspace  FIXME
+        document.getElementById("x").innerHTML = bksp(document.getElementById("x").innerHTML);
+    } else {
+        var kp = String.fromCharCode(unicode).toLowerCase();
+        document.getElementById("x").innerHTML = document.getElementById("x").innerHTML + kp;
+        if (unicode == 13) { //Enter
+            document.getElementById("x").innerHTML = bksp(document.getElementById("x").innerHTML);
+            var y = document.getElementById("x").innerHTML;
+            if (y == "cd") {
+                scroll("FIXME cd dialog here"); 
+            } else if (y == "clear") {
+                clear();
+            } else if (y == "help") {
+                scroll("<pre>HELP(1)         Reference Manual           HELP(1)</pre>"); 
+            } else if (y == "ls") {
+                scroll("abc</br>def</br>ghi</br>foo.txt"); 
+            //} else if (y == "man") {
+            //    scroll("FIXME man dialog here"); 
+            } else if (y == "pwd") {
+                scroll("$ pwd</br>/home/daemon"); 
+            //} else if (y == "rm") { //need to parse entry to produce first parameter fail FIXME
+            //    scroll("FIXME rm dialog here"); 
+            } else if (y == "stats") {
+                scroll("<iframe src = \"http://dhmn.net/stats/\" width = 1024 height = 768></iframe>"); 
+            } else if (y == "webcam") {
+                scroll("<img src = \"http://dhmn.net/webcam.jpg\"/>"); 
+            } else if (y == "whoami") {
+                scroll("$ whoami</br>daemon"); 
+            } else if (y == "") {
+                scroll("$"); //just hit Enter 
+            } else {
+                scroll(y + ": not found");
+            }
+            document.getElementById("x").innerHTML = "";
+        }
+    }
+}
+document.onkeydown = z;
+</script>
+</body>
+</html>
+

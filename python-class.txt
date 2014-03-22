@@ -1,0 +1,22 @@
+
+how to ping
+
+how to do os level stuff
+
+raspberry pi, pi-mame
+
+variables/constants
+
+insult generator
+
+copy from a book
+
+cite large scale examples
+
+d&d roguelike adventure game
+
+how to find working complete examples with which to build useful stuff - python "quickly"
+
+GUI stuff
+
+additive
