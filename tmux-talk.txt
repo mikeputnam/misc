@@ -15,4 +15,22 @@ http://en.wikipedia.org/wiki/ISC_license
 tmux runs on OpenBSD, FreeBSD, NetBSD, Linux and OS X and may still
 run on Solaris and AIX (although they haven't been tested in a while).
 
+tmux
+|
++---session(s)
+    |
+    +---window(s)
+        |
+        +---pane(s)
+
+First things to know:
+
+
+You interact with tmux via a "prefix". tmux listens for the prefix followed by your command.
+
+The default prefix is "Ctrl-b".
+
+
+
+$ tmux
 
