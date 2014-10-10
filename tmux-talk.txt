@@ -1,36 +1,84 @@
-tmux is a terminal multiplexer
+ _
+| |_ _ __ ___  _   ___  __
+| __| '_ ` _ \| | | \ \/ /
+| |_| | | | | | |_| |>  < 
+ \__|_| |_| |_|\__,_/_/\_\
 
-What is a terminal multiplexer? It lets you switch easily between several
-programs in one terminal, detach them (they keep running in the background) and
-reattach them to a different terminal. And do a lot more. See the manual.
+tmux is a terminal multiplexer. What is a terminal multiplexer?
 
-http://tmux.sourceforge.net/
+    tmux lets you switch easily between several programs in one terminal,
+    detach them (they keep running in the background) and reattach them to a
+    different terminal. And do a lot more. See the manual.
 
-Copyright by Nicholas Marriott <nicm@users.sourceforge.net>
+    tmux runs on OpenBSD, FreeBSD, NetBSD, Linux and OS X and may still run on
+    Solaris and AIX (although they haven't been tested in a while).
 
-License: ISC / Simplified BSD / MIT
+    http://tmux.sourceforge.net/
 
-http://en.wikipedia.org/wiki/ISC_license
+    Copyright by Nicholas Marriott <nicm@users.sourceforge.net>
 
-tmux runs on OpenBSD, FreeBSD, NetBSD, Linux and OS X and may still
-run on Solaris and AIX (although they haven't been tested in a while).
+License:
 
-tmux
-|
-+---session(s)
+    ISC / Simplified BSD / MIT http://en.wikipedia.org/wiki/ISC_license
+
+
+Structure:
+
+    tmux
     |
-    +---window(s)
+    +---session(s)
         |
-        +---pane(s)
+        +---window(s)
+            |
+            +---pane(s)
 
 First things to know:
 
+    The man page is the hands down best source of information.
 
-You interact with tmux via a "prefix". tmux listens for the prefix followed by your command.
+    $ man tmux
 
-The default prefix is "Ctrl-b".
+    You interact with tmux via a "prefix". tmux listens for the prefix followed
+    by your command.
 
+    The default prefix is "Ctrl-b". Hereafter referred to as C-b.
 
+    Some commands use C-b followed by the "Meta" key (alt by default).
 
-$ tmux
+Run tmux with:
+
+    $ tmux
+
+Default keybinds I use a lot:
+
+    C-b ?           List all bound keybinds.
+    C-b d           Detach from the tmux session leaving it running in the
+                    background.
+    C-c             Create a new window.
+    C-b l (lower L) Return to the last window you were looking at.
+    C-b "           Split the current window/pane into another pane.
+    C-b 1           Switch to window #1, #2, etc.
+    C-b z           In a multipaned window, zoom into the active pane so it
+                    fills the window.
+    C-b q           In a multipaned window, display a number in each pane that
+                    can then be pressed to jump focus on that pane.    
+    C-b M-1 to M-5  Toggle one of the five preset layouts: even-horizontal,
+                    even-vertical, main-horizontal, main-vertical, or tiled.
+    C-b ,           Rename window.
+    C-b :           Issue a tmux function
+    C-b M-<arrow>   Resize a pane using the arrow keys.
+
+Functions I use a lot and have mapped to keybinds in my .tmux.conf:
+
+    send-prefix         Useful for interacted with nested tmux sessions.
+    synchronize-panes   I have this set as a toggle to quickly jump between
+                        wanting to issue the same command to all panes and only
+                        wanting to interact with one pane.
+    source-file         Activate a file containing tmux commands. Useful when
+                        want to do seldom-performed tmux tasks that don't
+                        belong in your default tmux arrangement.
+
+Versions of this talk:
+
+    BarCamp Fond du Lac 2014-09-20
 
