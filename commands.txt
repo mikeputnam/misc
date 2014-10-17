@@ -1,2 +1,0 @@
---Recursively find and delete files/directories
-find . -name '*.DS_Store' -type f -delete
