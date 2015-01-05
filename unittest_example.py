@@ -8,7 +8,7 @@ def basehttp(httpverb,uri,params=None):
     res = conn.getresponse()
     return res
 
-class MyTests(unittest.TestCase):
+class MyTests(unittest.TestCase, route):
     """
     def test_businesses(self):
         t = basehttp('DELETE','/businesses')
@@ -19,18 +19,18 @@ class MyTests(unittest.TestCase):
         t = basehttp('GET','/businesses')
         self.assertEqual(t.status,200)
     """
-    def testbusinessesget(self):
+    def test_businesses_get(self):
         t = basehttp('GET','/businesses')
         self.assertEqual(t.status,200)
-    def testbusinessesdelete(self):
+    def test_businesses_delete(self):
         t = basehttp('DELETE','/businesses')
         self.assertEqual(t.status,200)
-    def testbusinessespost(self):
+    def test_businesses_post(self):
         t = basehttp('POST','/businesses','name=Sergio\'s&deal=Sundays kids eat for $0.99&phone=9205551212&address=123 College Ave. Appleton WI 54911&category=ahRzfmZveGNpdGllc2tpZHNkZWFsc3IPCxIIQ2F0ZWdvcnkY0Q8M')
         self.assertEqual(t.status,200)
         res = urllib2.urlopen(t.read())
         self.assertIn('Sergio',res.read(),res.read())
-    def testbusinessesput(self):
+    def test_businesses_put(self):
         t = basehttp('PUT','/businesses','name=Sergio\'s&deal=Sundays kids eat for $0.99&phone=9205551212&address=123 College Ave. Appleton WI 54911&category=ahRzfmZveGNpdGllc2tpZHNkZWFsc3IPCxIIQ2F0ZWdvcnkY0Q8M')
         self.assertEqual(t.status,501)
 
