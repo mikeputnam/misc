@@ -1,0 +1,30 @@
+---
+# This role applies system updates
+# 
+# Usage: ansible-playbook -vv --ask-sudo-pass --ask-vault-pass apply_updates.yml
+
+- hosts: all
+  tasks:
+    - group_by: key=os_{{ ansible_os_family }}
+
+- hosts: os_Debian
+  gather_facts: False
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes upgrade=yes
+
+- hosts: os_Darwin
+  gather_facts: false
+  sudo: yes
+  tasks:
+    - command: softwareupdate --install -all
+    - homebrew: update_homebrew=yes upgrade_all=yes
+
+- hosts: os_Windows
+  gather_facts: false
+  sudo: yes
+  tasks:
+    #- win_chocolatey:
+    #  name: PSWindowsUpdate
+    #- win_updates:
+
