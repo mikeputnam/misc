@@ -17,7 +17,7 @@
   gather_facts: false
   sudo: yes
   tasks:
-    - command: softwareupdate --install -all
+    - command: softwareupdate --install --all
     - homebrew: update_homebrew=yes upgrade_all=yes
 
 - hosts: os_Windows
