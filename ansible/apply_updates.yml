@@ -28,3 +28,27 @@
     #  name: PSWindowsUpdate
     #- win_updates:
 
+- hosts: os_Debian:!mikelappy386
+  gather_facts: false
+  sudo: yes
+  tasks:
+    - name: Check for reboot hint
+      shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; else echo 'no'; fi
+      ignore_errors: true
+      register: reboot_hint
+
+    - name: Rebooting...
+      command: shutdown -r now "New kernel installed"
+      async: 0
+      poll: 0
+      ignore_errors: true
+      when: reboot_hint.stdout.find("reboot") != -1
+      register: rebooting
+
+    - name: Wait for reboots to complete...
+      pause: seconds=120
+      when: rebooting
+
+    - name: Show running kernel
+      shell: uname -a
+      register: running_kernel
