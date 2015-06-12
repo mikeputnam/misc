@@ -23,10 +23,8 @@
 - hosts: os_Windows
   gather_facts: false
   tasks:
-    - win_chocolatey:
-      name: PSWindowsUpdate
-    - win_updates:
-      category: security
+    - win_chocolatey: name=PSWindowsUpdate state=present
+    - win_updates: category=security
 
 - hosts: os_Debian
   gather_facts: false
