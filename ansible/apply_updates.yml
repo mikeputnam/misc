@@ -44,7 +44,7 @@
       register: rebooting
 
     - name: Wait for reboots to complete...
-      pause: seconds=120
+      pause: seconds=180
       when: rebooting
 
     - name: Show running kernel
