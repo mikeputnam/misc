@@ -1,0 +1,18 @@
+---
+- name: Update language
+  apt: pkg=language-pack-en
+
+- name: Install build-essential
+  apt: pkg=build-essential
+
+- name: Install vim
+  apt: pkg=vim
+
+- name: Install tmux
+  apt: pkg=tmux
+
+- name: Install git
+  apt: pkg=git
+
+- name: Install ntp
+  apt: pkg=ntp

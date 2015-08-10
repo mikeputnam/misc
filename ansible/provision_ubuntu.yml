@@ -1,0 +1,5 @@
+---
+- hosts: debian
+  sudo: yes
+  roles:
+     - { role: common }
