@@ -1,2 +1,0 @@
-echo -ne "\033]0;Hello World.\007"
-
