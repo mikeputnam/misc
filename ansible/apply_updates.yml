@@ -12,6 +12,8 @@
   sudo: yes
   tasks:
     - apt: update_cache=yes upgrade=yes
+  roles:
+    - { role: common }
 
 - hosts: os_Darwin
   gather_facts: false
