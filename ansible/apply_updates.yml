@@ -33,7 +33,7 @@
   sudo: yes
   tasks:
     - name: Check for reboot hint
-      shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; else echo 'no'; fi
+      shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; fi
       ignore_errors: true
       register: reboot_hint
 
@@ -43,11 +43,10 @@
       poll: 0
       ignore_errors: true
       when: reboot_hint.stdout.find("reboot") != -1
-      register: rebooting
 
-    - name: Wait for reboots to complete...
-      pause: seconds=180
-      when: rebooting
+    - name: Wait for reboots to complete
+      pause: minutes=3
+      when: reboot_hint.stdout.find("reboot") != -1
 
     - name: Show running kernel
       shell: uname -a
