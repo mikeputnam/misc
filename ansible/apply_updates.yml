@@ -1,7 +1,7 @@
 ---
 # This role applies system updates
 #
-# Usage: ansible-playbook -vv -u <user> --ask-sudo-pass --ask-vault-pass apply_updates.yml
+# Usage: ansible-playbook -vv -u <user> --ask-become-pass --ask-vault-pass apply_updates.yml
 
 - hosts: all
   tasks:
@@ -9,7 +9,7 @@
 
 - hosts: os_Debian
   gather_facts: False
-  sudo: yes
+  become: yes
   tasks:
     - apt: update_cache=yes upgrade=yes
   roles:
@@ -17,7 +17,7 @@
 
 - hosts: os_Darwin
   gather_facts: false
-  sudo: yes
+  become: yes
   tasks:
     - command: softwareupdate --install --all
     - homebrew: update_homebrew=yes upgrade_all=yes
@@ -30,7 +30,7 @@
 
 - hosts: os_Debian
   gather_facts: false
-  sudo: yes
+  become: yes
   tasks:
     - name: Check for reboot hint
       shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; fi
