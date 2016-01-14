@@ -22,6 +22,12 @@
     - command: softwareupdate --install --all
     - homebrew: update_homebrew=yes upgrade_all=yes
 
+- hosts: os_FreeBSD
+  gather_facts: false
+  become: yes
+  tasks:
+    - command: pkg upgrade --yes
+
 - hosts: os_Windows
   gather_facts: false
   tasks:
