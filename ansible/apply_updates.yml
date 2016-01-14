@@ -1,40 +1,45 @@
 ---
-# This role applies system updates
+# This playbook applies system updates
 #
-# Usage: ansible-playbook -vv -u <user> --ask-become-pass --ask-vault-pass apply_updates.yml
+# Usage: ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt apply_updates.yml
 
 - hosts: all
   tasks:
     - group_by: key=os_{{ ansible_os_family }}
 
-- hosts: os_Debian
+- name: Update packages os_Debian
+  hosts: os_Debian
   gather_facts: False
   become: yes
   tasks:
     - apt: update_cache=yes upgrade=yes
-  roles:
-    - { role: common }
 
-- hosts: os_Darwin
+- name: Update packages os_Darwin
+  hosts: os_Darwin
   gather_facts: false
   become: yes
   tasks:
     - command: softwareupdate --install --all
     - homebrew: update_homebrew=yes upgrade_all=yes
 
-- hosts: os_FreeBSD
+- name: Update packages os_FreeBSD
+  hosts: os_FreeBSD
   gather_facts: false
   become: yes
   tasks:
     - command: pkg upgrade --yes
+      register: pkg_result
+      changed_when: pkg_result.stdout.find("Your packages are up to date.") == -1
 
-- hosts: os_Windows
+- name: Update packages os_Windows
+  hosts: os_Windows
   gather_facts: false
   tasks:
     - win_chocolatey: name=PSWindowsUpdate state=present
     - win_updates: category=security
 
-- hosts: os_Debian
+- name: Reboot if new kernel os_Debian
+  hosts: os_Debian
   gather_facts: false
   become: yes
   tasks:
@@ -55,5 +60,5 @@
       when: reboot_hint.stdout.find("reboot") != -1
 
     - name: Show running kernel
-      shell: uname -a
+      shell: uname -r
       register: running_kernel

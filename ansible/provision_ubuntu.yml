@@ -1,5 +1,10 @@
 ---
-- hosts: debian
-  sudo: yes
+# This playbook sets up minimum/base config for Ubuntu machines.
+#
+# Usage: ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt provision_ubuntu.yml
+- name: Provision Ubuntu machines
+  hosts: debian
+  become: yes
   roles:
-     - { role: common }
+     - { role: common_ubuntu }
+
