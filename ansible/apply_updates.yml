@@ -47,6 +47,7 @@
       shell: if [ $(readlink -f /vmlinuz) != /boot/vmlinuz-$(uname -r) ]; then echo 'reboot'; fi
       ignore_errors: true
       register: reboot_hint
+      changed_when: false
 
     - name: Rebooting...
       command: shutdown -r now "New kernel installed"
@@ -62,3 +63,4 @@
     - name: Show running kernel
       shell: uname -r
       register: running_kernel
+      changed_when: false
