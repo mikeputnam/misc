@@ -1,0 +1,5 @@
+---
+# Specify a pkg flavour with '--no_x11' or '--' for the default flavour
+- openbsd_pkg: name=chromium state=present
+- openbsd_pkg: name=python-3.5.1 state=present
+- openbsd_pkg: name=ImageMagick-- state=present

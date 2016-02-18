@@ -1,0 +1,18 @@
+---
+# This playbook sets up minimum/base config for OpenBSD machines.
+# Assumes that desktop machines are running -current.
+#
+# Usage: ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt provision_openbsd.yml
+- name: Provision OpenBSD common
+  hosts: openbsd_servers
+  become: yes
+  roles:
+     - { role: openbsd_common }
+
+- name: Provision OpenBSD desktops
+  hosts: openbsd_desktops
+  become: yes
+  roles:
+     - { role: openbsd_common }
+     - { role: openbsd_desktops }
+

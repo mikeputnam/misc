@@ -1,0 +1,21 @@
+---
+- name: Derive OpenBSD version
+  shell: uname -r
+  register: uname_result
+
+- name: Set openbsd_version (overridden by var files)
+  set_fact:
+    openbsd_version: "{{uname_result.stdout}}"
+  when: openbsd_version is not defined
+
+- name: Setup PKG_PATH
+  become: yes
+  lineinfile:
+    dest: /etc/pkg.conf
+    create: yes
+    state: present
+    line: "installpath = http://ftp3.usa.openbsd.org/pub/OpenBSD/{{openbsd_version}}/packages/{{ansible_userspace_architecture}}"
+
+# Specify a pkg flavour with '--no_x11' or '--' for the default flavour
+- openbsd_pkg: name=vim--no_x11 state=present
+- openbsd_pkg: name=git-- state=present
