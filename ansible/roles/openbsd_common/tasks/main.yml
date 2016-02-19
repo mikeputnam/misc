@@ -27,7 +27,7 @@
   register: dotfile_results
 
 - name: Create symlinks in /home/mike
-  file: src={{item.path}} dest=/home/mike/{{item.path | basename}} force=yes state=link
+  file: src={{item.path}} dest=/home/mike/{{item.path | basename}} owner=mike group=mike force=yes state=link
   with_items: dotfile_results.files
 
 # Specify a pkg flavour with '--no_x11' or '--' for the default flavour
