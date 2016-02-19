@@ -22,7 +22,7 @@
 
 - name: Fetch dotfiles repo
   become_user: mike
-  git: repo=https://github.com/mikeputnam/dotfiles.git dest=/home/mike/src/dotfiles
+  git: repo=https://github.com/mikeputnam/dotfiles.git dest=/home/mike/src/dotfiles force=yes
 
 - name: Discover dotfiles in /home/mike
   find: paths="/home/mike/src/dotfiles" patterns="*.*" hidden=true
