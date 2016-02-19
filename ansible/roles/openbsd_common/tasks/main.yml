@@ -16,10 +16,12 @@
     state: present
     line: "installpath = http://ftp3.usa.openbsd.org/pub/OpenBSD/{{openbsd_version}}/packages/{{ansible_userspace_architecture}}"
 
+# TODO Refactor these out to a generic/common roll appicable across unix like OSes.
 - name: Setup /home/mike/src
   file: path=/home/mike/src state=directory
 
 - name: Fetch dotfiles repo
+  become_user: mike
   git: repo=https://github.com/mikeputnam/dotfiles.git dest=/home/mike/src/dotfiles
 
 - name: Discover dotfiles in /home/mike
@@ -29,6 +31,19 @@
 - name: Create symlinks in /home/mike
   file: src={{item.path}} dest=/home/mike/{{item.path | basename}} owner=mike group=mike force=yes state=link
   with_items: dotfile_results.files
+# TODO Refactor
+
+- name: Source .kshrc via .profile on OpenBSD
+  lineinfile:
+    dest: /home/mike/.profile
+    state: present
+    line: 'export ENV=$HOME/.kshrc'
+
+- name: FIXME reverseVideo thing on OpenBSD
+  lineinfile:
+    dest: /home/mike/.Xdefaults
+    state: present
+    line: 'XTerm*reverseVideo: true'
 
 # Specify a pkg flavour with '--no_x11' or '--' for the default flavour
 - openbsd_pkg: name=vim--no_x11 state=present
