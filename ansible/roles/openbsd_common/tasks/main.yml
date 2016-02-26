@@ -24,6 +24,10 @@
     state: present
     line: "installpath = http://ftp3.usa.openbsd.org/pub/OpenBSD/{{openbsd_version}}/packages/{{openbsd_arch}}"
 
+# Specify a pkg flavour with '--no_x11' or '--' for the default flavour
+- openbsd_pkg: name=vim--no_x11 state=present
+- openbsd_pkg: name=git-- state=present
+
 # TODO Refactor these out to a generic/common roll appicable across unix like OSes.
 - name: Setup /home/mike/src
   file: path=/home/mike/src state=directory
@@ -53,6 +57,3 @@
     state: present
     line: 'XTerm*reverseVideo: true'
 
-# Specify a pkg flavour with '--no_x11' or '--' for the default flavour
-- openbsd_pkg: name=vim--no_x11 state=present
-- openbsd_pkg: name=git-- state=present
