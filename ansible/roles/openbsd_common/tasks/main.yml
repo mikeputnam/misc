@@ -30,7 +30,7 @@
 
 # TODO Refactor these out to a generic/common roll appicable across unix like OSes.
 - name: Setup /home/mike/src
-  file: path=/home/mike/src state=directory
+  file: path=/home/mike/src state=directory owner=mike group=mike
 
 - name: Fetch dotfiles repo
   become_user: mike
