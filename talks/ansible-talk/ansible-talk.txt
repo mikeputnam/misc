@@ -1,0 +1,118 @@
+# ☑ ☐ ☒ ☞ ☛ ⛁ ⟿ ⟲ ⟳ ❝ ❞ ✊ ✋ 𝆊 ⇒•
+
+#©⍨☕
+
+#¯\_(ツ)_/¯
+
+# http://www.fileformat.info/info/unicode/block/miscellaneous_symbols/utf8test.htm
+# http://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
+# http://www.fileformat.info/info/unicode/block/private_use_area/utf8test.htm
+
+@ansible-logo.png
+
+What is Ansible?
+   ¯\_(ツ)_/¯
+
+☑ Deployment
+☑ Configuration
+☑ Orchestration
+
+@genesis.png
+
+#Ansible project was born in February 2012.
+
+@dehaan_tweet.png
+
+#Lead by Michael DeHaan (@laserllama) former employee of Red Hat and Puppet.
+
+⇒ Commercial entity AnsibleWorks(later Ansible, Inc.)
+    sells "Tower" - a web UI for Ansible.
+⇒ DeHaan departed the project in January 2015.
+⇒ Red Hat acquires Ansible, Inc. October 2015.
+
+Why Ansible?
+
+My Scenario:
+  - AWS,
+  - GNU/Linux,
+  - 3 tier web application
+  - 10 devs, 1 sysadmin
+
+Ansible peers:
+  ☞ Chef
+  ☞ Puppet
+  ☞ SaltStack
+
+Chef?
+
++1 Early to the party.
++1 Great community-built reusable recipes.
+-1 Domain specific language (based on Ruby -1).
+-1 Searchability terrible due to cooking analogy.
+-1 Client/Server: Berkshelf? Librarian? Knife?
+
+Puppet?
+
++1 Early to the party.
+-1 Domain specific language (based on Ruby -1). FIXME VERIFY
+-1 Client/Server.
+
+SaltStack?
+
++1 Can be run no-server.
++1 Python.
+-1 Seemed somewhat incomplete on the
+     deployment side to me at the time
+     of evaluation.
+
+Ansible!
+
++1 No server; SSH.
++1 No domain specific language.
+     Straight YAML, straight Python
+     if you want to get fancy.
++1 Active participatory community
+     writing lots of modules / batteries included.
++1 Great documentation.
+
+How to Ansible?
+
+pip install ansible
+write YAML files
+
+playbooks
+inventory
+tasks
+
+
+Demo
+
+#Describe visual demo setup
+#installed vanilla openbsd
+#added a user
+#ssh-copy-id -i ~/.ssh/id_rsa.hedley mike@192.168.181.143
+#echo "permit nopass keepenv mike as root" > /etc/doas.conf
+#export PKG_PATH=http://ftp3.usa.openbsd.org/pub/OpenBSD/snapshots/packages/amd64
+#pkg_add -i git python
+#ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
+
+#this will allow us to visually see an example of config, and orchestration
+
+#cd ~/src/misc/ansible
+#tree
+#ansible vault - add new hosts entry
+#tip: keep a usage line at the top of your playbook
+#vim provision_openbsd.yml
+
+#http://docs.ansible.com/ansible/modules_by_category.html
+#http://docs.ansible.com/ansible/playbooks_best_practices.html
+#ad hoc
+#ansible 'all' --vault-password-file=~/.vault.txt -m shell -a 'df -h | grep xvda1'
+
+2014 talk by the author:
+    https://www.youtube.com/watch?v=Qi0AhK7PMCI
+Ansible in use at Twitter:
+    https://www.youtube.com/watch?v=fwGrKXzocg4
+Ansible 2.0 & Beyond:
+    https://www.youtube.com/watch?v=sy8i4VXIVEE
+
