@@ -25,8 +25,11 @@
     line: "installpath = http://ftp3.usa.openbsd.org/pub/OpenBSD/{{openbsd_version}}/packages/{{openbsd_arch}}"
 
 # Specify a pkg flavour with '--no_x11' or '--' for the default flavour
-- openbsd_pkg: name=vim--no_x11 state=present
-- openbsd_pkg: name=git-- state=present
+- name: Install vim
+  openbsd_pkg: name=vim--no_x11 state=present
+
+- name: Install git
+  openbsd_pkg: name=git-- state=present
 
 # TODO Refactor these out to a generic/common roll appicable across unix like OSes.
 - name: Setup /home/mike/src
@@ -43,7 +46,7 @@
 - name: Create symlinks in /home/mike
   file: src={{item.path}} dest=/home/mike/{{item.path | basename}} owner=mike group=mike force=yes state=link
   with_items: dotfile_results.files
-# TODO Refactor
+# TODO End Refactor
 
 - name: Source .kshrc via .profile on OpenBSD
   lineinfile:
@@ -51,7 +54,7 @@
     state: present
     line: 'export ENV=$HOME/.kshrc'
 
-- name: FIXME reverseVideo thing on OpenBSD
+- name: reverseVideo thing on OpenBSD
   lineinfile:
     dest: /home/mike/.Xdefaults
     state: present

@@ -1,8 +1,13 @@
 ---
-- name: Supress default xconsole and set bg color by overwriting Xsetup_0
+- name: Supress default xconsole and set bg color
   shell: 'echo xsetroot -solid black > /etc/X11/xdm/Xsetup_0'
 
 # Specify a pkg flavour with '--no_x11' or '--' for the default flavour
-- openbsd_pkg: name=chromium state=present
-- openbsd_pkg: name=python-3.5.1 state=present
-- openbsd_pkg: name=ImageMagick-- state=present
+- name: Install chromium
+  openbsd_pkg: name=chromium state=present
+
+- name: Install python-3.5.1
+  openbsd_pkg: name=python-3.5.1 state=present
+
+- name: Install ImageMagick
+  openbsd_pkg: name=ImageMagick-- state=present

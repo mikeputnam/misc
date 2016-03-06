@@ -3,7 +3,7 @@
 # Assumes that desktop machines are running -current.
 #
 # Usage: ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt provision_openbsd.yml
-- name: Provision OpenBSD common
+- name: Provision OpenBSD servers
   hosts: openbsd_servers
   become: yes
   roles:
