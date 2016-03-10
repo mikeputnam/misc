@@ -20,9 +20,6 @@ What is Ansible?
 @genesis.png
 
 #Ansible project was born in February 2012.
-
-@dehaan_tweet.png
-
 #Lead by Michael DeHaan (@laserllama) former employee of Red Hat and Puppet.
 
 ⇒ Commercial entity AnsibleWorks(later Ansible, Inc.)
@@ -80,10 +77,18 @@ How to Ansible?
 pip install ansible
 write YAML files
 
+#http://docs.ansible.com/ansible/playbooks_best_practices.html#directory-layout
+
 playbooks
 inventory
-tasks
-
+roles
+  tasks
+  handlers
+  templates
+  files
+  vars
+  defaults
+  meta
 
 Demo
 
@@ -115,4 +120,5 @@ Ansible in use at Twitter:
     https://www.youtube.com/watch?v=fwGrKXzocg4
 Ansible 2.0 & Beyond:
     https://www.youtube.com/watch?v=sy8i4VXIVEE
-
+Ansible vs. Chef
+    http://tjheeta.github.io/2015/04/15/ansible-vs-chef/
