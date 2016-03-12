@@ -51,7 +51,7 @@ Chef?
 Puppet?
 
 +1 Early to the party.
--1 Domain specific language (based on Ruby -1). FIXME VERIFY
+-1 Domain specific language (based on Ruby -1).
 -1 Client/Server.
 
 SaltStack?
