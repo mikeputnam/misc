@@ -122,3 +122,5 @@ Ansible 2.0 & Beyond:
     https://www.youtube.com/watch?v=sy8i4VXIVEE
 Ansible vs. Chef
     http://tjheeta.github.io/2015/04/15/ansible-vs-chef/
+Ansible + Windows
+    https://www.ansible.com/blog/ansible-windows-features
