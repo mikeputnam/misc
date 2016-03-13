@@ -1,13 +1,3 @@
-# ☑ ☐ ☒ ☞ ☛ ⛁ ⟿ ⟲ ⟳ ❝ ❞ ✊ ✋ 𝆊 ⇒•
-
-#©⍨☕
-
-#¯\_(ツ)_/¯
-
-# http://www.fileformat.info/info/unicode/block/miscellaneous_symbols/utf8test.htm
-# http://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
-# http://www.fileformat.info/info/unicode/block/private_use_area/utf8test.htm
-
 @ansible-logo.png
 
 What is Ansible?
@@ -89,30 +79,6 @@ roles
   vars
   defaults
   meta
-
-Demo
-
-#Describe visual demo setup
-#installed vanilla openbsd
-#added a user
-#ssh-copy-id -i ~/.ssh/id_rsa.hedley mike@192.168.181.143
-#echo "permit nopass keepenv mike as root" > /etc/doas.conf
-#export PKG_PATH=http://ftp3.usa.openbsd.org/pub/OpenBSD/snapshots/packages/amd64
-#pkg_add -i git python
-#ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
-
-#this will allow us to visually see an example of config, and orchestration
-
-#cd ~/src/misc/ansible
-#tree
-#ansible vault - add new hosts entry
-#tip: keep a usage line at the top of your playbook
-#vim provision_openbsd.yml
-
-#http://docs.ansible.com/ansible/modules_by_category.html
-#http://docs.ansible.com/ansible/playbooks_best_practices.html
-#ad hoc
-#ansible 'all' --vault-password-file=~/.vault.txt -m shell -a 'df -h | grep xvda1'
 
 2014 talk by the author:
     https://www.youtube.com/watch?v=Qi0AhK7PMCI
