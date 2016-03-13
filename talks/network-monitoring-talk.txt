@@ -1,0 +1,16 @@
+Basics of Network Monitoring
+Using Open Source/Free Software
+
+Setup:
+- An olde desktop computer
+  with 2 network cards
+- Ubuntu 14.04LTS
+- 2 CAT5 ethernet cables
+Optional:
+- Cheap unmanaged switch
+- Additional CAT5 cables
+- Additional devices to monitor
+
+What we will be creating
+
+
