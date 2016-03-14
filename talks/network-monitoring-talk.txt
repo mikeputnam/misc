@@ -11,6 +11,109 @@ Optional:
 - Additional CAT5 cables
 - Additional devices to monitor
 
-What we will be creating
+What we will be creating?
 
+A network gateway from which we can
+install and use monitoring tools.
 
+So instead of...
+
+[internet]
+   ^^^
+    |
+[combined modem/firewall/router/wifi]
+(running proprietary software of unknown
+quality and utility)
+   ^^^
+    |
+[your devices]
+
+...we'll have...
+
+[internet]
+   ^^^
+    |
+[combined gateway/firewall/router]
+(running open software of known
+quality and utility)
+   ^^^
+    |
+[your devices]
+
+Which gives us  a common starting point
+from which to leverage the open source
+community of software.
+
+So here's how!
+
+☞ Install Ubuntu 14.04LTS FIXME details
+
+☞ Configure the network cards
+
+sudo vim /etc/network/interfaces
+
+# Outside
+auto eth1
+iface eth1 inet dhcp
+hostname fw0
+# Inside
+auto eth0
+iface eth0 inet static
+address 10.0.0.1
+netmask 255.255.255.0
+up iptables-restore < /etc/iptables.save
+
+☞ Enable traffic forwarding
+
+sudo vim /etc/sysctl.conf
+
+Uncomment this line:
+net.ipv4.ip_forward=1
+
+☞ Configure Firewall/NAT
+
+sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -o eth1 -m state -–state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i eth1 -o eth1 -j ACCEPT
+
+☞ Persist the Firewall rules
+
+sudo bash -c 'iptables-save > /etc/iptables.save'
+
+☞ Load the new traffic forwarding rule
+
+sudo sysctl -p /etc/sysctl.conf
+
+☞ Install DHCP server
+
+sudo apt-get install isc-dhcp-server
+
+☞ Configure DHCP server
+
+sudo vim /etc/dhcp/dhcpd.conf
+
+subnet 10.0.0.0 netmask 255.255.255.0 {
+  range 10.0.0.10 10.0.0.100;
+  option routers 10.0.0.1;
+  option domain-name-servers 8.8.8.8;
+}
+
+☞ Tell DHCP which network card to listen on
+
+sudo vim /etc/default/isc-dhcp-server
+
+INTERFACES="eth0" # Inside!!!
+
+☞ Run shiny new DHCP server
+
+sudo service isc-dhcp-server start
+
+☞ Restart networking and we're
+  off to the races!
+
+sudo service networking restart
+
+☞ Install some monitoring tools
+
+sudo apt-get install tcpdump nmap iftop
