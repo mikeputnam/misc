@@ -4,7 +4,7 @@ Using Open Source/Free Software
 Setup:
 - An olde desktop computer
   with 2 network cards
-- Ubuntu 14.04LTS
+- Ubuntu 14.04 LTS
 - 2 CAT5 ethernet cables
 Optional:
 - Cheap unmanaged switch
@@ -18,45 +18,51 @@ install and use monitoring tools.
 
 So instead of...
 
-[internet]
-   ^^^
-    |
-[combined modem/firewall/router/wifi]
-(running proprietary software of unknown
-quality and utility)
-   ^^^
-    |
-[your devices]
+╔══════════╗
+║ internet ║
+╚══════════╝
+    ⇅
+╔═════════════════════════════════════════╗
+║ commercial device running proprietary   ║
+║ software of unknown quality and utility ║
+╚═════════════════════════════════════════╝
+    ⇅
+╔══════════════╗
+║ your devices ║
+╚══════════════╝
 
 ...we'll have...
 
-[internet]
-   ^^^
-    |
-[combined gateway/firewall/router]
-(running open software of known
-quality and utility)
-   ^^^
-    |
-[your devices]
+╔══════════╗
+║ internet ║
+╚══════════╝
+    ⇅
+╔════════════════════════════════════════════╗
+║ combined gateway/firewall/router running   ║
+║ open software of known quality and utility ║
+╚════════════════════════════════════════════╝
+    ⇅
+╔══════════════╗
+║ your devices ║
+╚══════════════╝
 
-Which gives us  a common starting point
+...which gives us a common starting point
 from which to leverage the open source
 community of software.
 
 So here's how!
 
-☞ Install Ubuntu 14.04LTS FIXME details
+☞ Install Ubuntu 14.04 LTS (FIXME)
 
 ☞ Configure the network cards
 
 sudo vim /etc/network/interfaces
 
-# Outside
+ # Outside
 auto eth1
 iface eth1 inet dhcp
 hostname fw0
-# Inside
+ # Inside
 auto eth0
 iface eth0 inet static
 address 10.0.0.1
@@ -73,9 +79,9 @@ net.ipv4.ip_forward=1
 ☞ Configure Firewall/NAT
 
 sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
-sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-sudo iptables -A FORWARD -i eth1 -o eth1 -m state -–state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A FORWARD -i eth1 -o eth1 -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
 
 ☞ Persist the Firewall rules
 
