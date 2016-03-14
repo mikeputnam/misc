@@ -4,16 +4,19 @@
 sudo apt-get install git make gcc libx11-dev libxft-dev libpng-dev libjpeg-dev
 
 # Fetch sent and farbfeld
+cd ~/src
 git clone http://git.suckless.org/sent
 git clone http://git.suckless.org/farbfeld
 
 # Patch and compile farbfeld
-patch < farbfeld-adjust-for-ubuntu.patch
+cd ~/src/farbfeld
+patch < src/misc/sent-presentation-tool/farbfeld-adjust-for-ubuntu.patch
 make
 
 # Compile sent
+cd ~/sent
 make
 
 # Run with:
-PATH=$PATH:~/src/farbfeld ./sent example.txt
+PATH=$PATH:~/src/farbfeld:~/src/sent sent example.txt
 
