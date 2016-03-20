@@ -8,11 +8,13 @@
   become: yes
   roles:
      - { role: openbsd_common }
+     - { role: dotfiles }
 
 - name: Provision OpenBSD desktops
   hosts: openbsd_desktops
   become: yes
   roles:
      - { role: openbsd_common }
+     - { role: dotfiles }
      - { role: openbsd_desktops }
 

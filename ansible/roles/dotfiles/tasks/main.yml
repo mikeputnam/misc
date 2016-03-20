@@ -1,0 +1,16 @@
+---
+- name: Setup /home/{{username}}/src
+  file: path=/home/{{username}}/src state=directory owner={{username}} group={{username}}
+
+- name: Fetch dotfiles repo
+  become_user: "{{username}}"
+  git: repo=https://github.com/mikeputnam/dotfiles.git dest=/home/{{username}}/src/dotfiles force=yes
+
+- name: Discover dotfiles in /home/{{username}}
+  find: paths="/home/{{username}}/src/dotfiles" patterns="*.*" hidden=true
+  register: dotfile_results
+
+- name: Create symlinks in /home/{{username}}
+  file: src={{item.path}} dest=/home/{{username}}/{{item.path | basename}} owner={{username}} group={{username}} force=yes state=link
+  with_items: dotfile_results.files
+
