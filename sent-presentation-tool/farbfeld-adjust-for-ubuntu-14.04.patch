@@ -1,0 +1,30 @@
+diff --git Makefile Makefile
+index 236351f..1bdc2bc 100644
+--- Makefile
++++ Makefile
+@@ -11,7 +11,7 @@ all: png2ff ff2png jpg2ff
+ 
+ .c:
+ 	@echo CC $<
+-	@${CC} -o $@ ${CFLAGS} ${LIBS} ${LDFLAGS} $<
++	@${CC} $< -o $@ ${CFLAGS} ${LIBS} ${LDFLAGS}
+ 
+ clean:
+ 	@echo cleaning
+diff --git config.mk config.mk
+index 37ad05f..28ebe06 100644
+--- config.mk
++++ config.mk
+@@ -8,10 +8,10 @@ PREFIX = /usr/local
+ MANPREFIX = ${PREFIX}/man
+ 
+ PNGLIB = /usr/local/lib
+-PNGINC = /usr/local/include
++PNGINC = /usr/include/libpng12
+ 
+ JPGLIB = /usr/local/lib
+-JPGINC = /usr/local/include
++JPGINC = /usr/lib/i386-linux-gnu
+ 
+ INCS = -I${PNGINC} -I${JPGINC}
+ LIBS = -L${PNGLIB} -L${JPGLIB} -lpng -ljpeg
