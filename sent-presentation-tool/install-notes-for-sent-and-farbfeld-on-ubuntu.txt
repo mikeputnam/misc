@@ -10,7 +10,7 @@ git clone http://git.suckless.org/farbfeld
 
 # Patch and compile farbfeld
 cd ~/src/farbfeld
-patch < src/misc/sent-presentation-tool/farbfeld-adjust-for-ubuntu.patch
+patch < ../misc/sent-presentation-tool/farbfeld-adjust-for-ubuntu-16.04.patch
 make
 
 # Compile sent
