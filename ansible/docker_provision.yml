@@ -1,0 +1,6 @@
+---
+# Usage: docker run --rm -it -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK --dns=192.168.1.1 -v "$PWD":/srv ansible/ubuntu14.04-ansible /bin/bash -c "ansible-playbook -vv -i /srv/hosts --ask-vault-pass /srv/docker_provision.yml"
+- include: /srv/keyscan_hosts.yml
+- include: /srv/provision.yml
+- include: /srv/apply_updates.yml
+

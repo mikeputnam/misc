@@ -1,0 +1,33 @@
+---
+# This playbook solves for the initial ssh host key challenge
+# by running an ssh-keyscan against every host in the inventory
+# and storing the results in known_hosts
+#
+# Usage: ansible-playbook -vv /tmp/keyscan-hosts.yml -i /tmp/hosts --ask-vault-pass
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+
+  - name: keyscan all the hosts
+    command: /usr/bin/ssh-keyscan -T 10 {{ item }}
+    ignore_errors: yes
+    register: keyscan
+    with_items: groups['all']
+
+  - name: aggregate the results
+    set_fact:
+      keyscan_stdout_lines: "{{item.stdout_lines}}"
+    register: keyscan_stdout_lines_result
+    with_items: keyscan.results
+
+  - name: map to a list
+    set_fact:
+      key_lines: "{{keyscan_stdout_lines_result.results | map(attribute='ansible_facts.keyscan_stdout_lines') | list }}"
+
+  - name: add to known_hosts
+    lineinfile:
+      dest: '/root/.ssh/known_hosts'
+      line: "{{item}}"
+      create: yes
+    with_items: '{{ key_lines }}'
