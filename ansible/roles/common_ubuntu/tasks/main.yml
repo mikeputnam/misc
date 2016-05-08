@@ -5,6 +5,9 @@
 - name: Install build-essential
   apt: pkg=build-essential
 
+- name: Install aptitude
+  apt: pkg=aptitude
+
 - name: Install vim
   apt: pkg=vim
 
