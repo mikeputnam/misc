@@ -2,8 +2,11 @@
 # This playbook sets up minimum/base config for Ubuntu machines.
 #
 # Usage: ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt provision_ubuntu.yml
+#
+# Target single machine using docker:
+# $ sudo docker run --rm -it -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK --dns=192.168.1.1 -v "$PWD":/srv ansible/ubuntu14.04-ansible /bin/bash -c "ansible-playbook -vv -i '192.168.1.173,' --extra_vars "variable_host=192.168.1.173" --ask-vault-pass --ask-become-pass /srv/provision_ubuntu.yml -u mike"
 - name: Provision Ubuntu machines
-  hosts: debian
+  hosts: "{{ variable_host | default('debian') }}"
   become: yes
   roles:
      - { role: common_ubuntu }
