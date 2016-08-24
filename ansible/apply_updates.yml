@@ -50,7 +50,7 @@
       changed_when: false
 
     - name: Rebooting...
-      command: shutdown -r now "New kernel installed"
+      command: reboot "New kernel installed"
       async: 0
       poll: 0
       ignore_errors: true

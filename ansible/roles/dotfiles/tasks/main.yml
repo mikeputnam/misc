@@ -12,5 +12,5 @@
 
 - name: Create symlinks in /home/{{username}}
   file: src={{item.path}} dest=/home/{{username}}/{{item.path | basename}} owner={{username}} group={{username}} force=yes state=link
-  with_items: dotfile_results.files
+  with_items: '{{dotfile_results.files}}'
 

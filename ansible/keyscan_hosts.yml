@@ -13,21 +13,22 @@
     command: /usr/bin/ssh-keyscan -T 10 {{ item }}
     ignore_errors: yes
     register: keyscan
-    with_items: groups['all']
+    with_items: '{{ groups["all"] }}'
 
   - name: aggregate the results
     set_fact:
       keyscan_stdout_lines: "{{item.stdout_lines}}"
     register: keyscan_stdout_lines_result
-    with_items: keyscan.results
+    with_items: '{{keyscan.results}}'
 
   - name: map to a list
     set_fact:
       key_lines: "{{keyscan_stdout_lines_result.results | map(attribute='ansible_facts.keyscan_stdout_lines') | list }}"
 
   - name: add to known_hosts
+    become: yes
     lineinfile:
-      dest: '/root/.ssh/known_hosts'
+      dest: '/etc/ssh/ssh_known_hosts'
       line: "{{item}}"
       create: yes
     with_items: '{{ key_lines }}'

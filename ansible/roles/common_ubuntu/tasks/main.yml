@@ -1,7 +1,4 @@
 ---
-- name: Update language
-  apt: pkg=language-pack-en
-
 - name: Install build-essential
   apt: pkg=build-essential
 
