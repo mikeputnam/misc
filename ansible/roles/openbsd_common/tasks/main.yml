@@ -1,45 +1,13 @@
 ---
-- name: Derive OpenBSD version
-  shell: uname -r
-  register: uname_version_result
-
-- name: Derive OpenBSD arch
-  shell: uname -m
-  register: uname_arch_result
-
-- name: Set openbsd_version (overridden by var files)
-  set_fact:
-    openbsd_version: "{{uname_version_result.stdout}}"
-  when: openbsd_version is not defined
-
-- name: Set openbsd_arch
-  set_fact:
-    openbsd_arch: "{{uname_arch_result.stdout}}"
-
-- name: Setup PKG_PATH
-  become: yes
-  lineinfile:
-    dest: /etc/pkg.conf
-    create: yes
-    state: present
-    line: "installpath = http://ftp3.usa.openbsd.org/pub/OpenBSD/{{openbsd_version}}/packages/{{openbsd_arch}}"
-
-# Specify a pkg flavour with '--no_x11' or '--' for the default flavour
 - name: Install vim
-  openbsd_pkg: name=vim--no_x11 state=present
+  shell: 'pkg_add -I -D unsigned vim--no_x11'
 
 - name: Install git
-  openbsd_pkg: name=git-- state=present
+  shell: 'pkg_add -I -D unsigned git'
 
 - name: Source .kshrc via .profile on OpenBSD
   lineinfile:
     dest: /home/mike/.profile
     state: present
     line: 'export ENV=$HOME/.kshrc'
-
-- name: reverseVideo thing on OpenBSD
-  lineinfile:
-    dest: /home/mike/.Xdefaults
-    state: present
-    line: 'XTerm*reverseVideo: true'
 

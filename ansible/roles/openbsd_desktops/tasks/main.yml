@@ -6,8 +6,14 @@
 - name: Install chromium
   openbsd_pkg: name=chromium state=present
 
-- name: Install python-3.5.1
-  openbsd_pkg: name=python-3.5.1 state=present
+- name: Install python-3.5.2
+  shell: 'pkg_add -I -D unsigned python%3.5'
 
 - name: Install ImageMagick
-  openbsd_pkg: name=ImageMagick-- state=present
+  shell: 'pkg_add -I -D unsigned ImageMagick'
+
+- name: reverseVideo thing on OpenBSD
+  lineinfile:
+    dest: /home/mike/.Xdefaults
+    state: present
+    line: 'XTerm*reverseVideo: true'
