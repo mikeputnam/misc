@@ -5,7 +5,7 @@
 # sudo docker run --rm -it -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK --dns=192.168.1.1 -v "$PWD":/srv ansible/ubuntu14.04-ansible /bin/bash -c "ansible-playbook -vv -i /srv/hosts --vault-password-file /srv/.2113.txt /srv/provision.yml -u mike  --extra-vars 'playbook_dir=/srv'"
 #
 # Ansible installed locally
-# ansible-playbook -vv -i hosts --vault-password-file .2113.txt --ask-become-pass provision.yml -u mike --extra-vars "playbook_dir=."
+# ansible-playbook -vv -i hosts --vault-password-file ~/.vault2113.txt provision.yml -u mike --extra-vars "playbook_dir=."
 - include: "{{ playbook_dir }}/keyscan_hosts.yml"
 - include: "{{ playbook_dir }}/provision_openbsd.yml"
 - include: "{{ playbook_dir }}/provision_ubuntu.yml"
