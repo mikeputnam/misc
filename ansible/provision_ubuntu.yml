@@ -17,3 +17,4 @@
   become: yes
   roles:
      - { role: google-chrome }
+     - { role: shutter }
