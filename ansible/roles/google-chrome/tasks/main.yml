@@ -1,0 +1,6 @@
+- name: Place apt sources file
+  file: src=google-chrome.list dest=/etc/apt/sources.list.d
+
+- name: Run apt update and install
+  apt: name=google-chrome-stable update_cache=yes
+
