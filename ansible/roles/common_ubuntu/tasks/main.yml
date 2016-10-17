@@ -8,6 +8,9 @@
 - name: Install vim
   apt: pkg=vim
 
+- name: Set EDITOR vim
+  alternatives: name=editor path=/usr/bin/vim.basic
+
 - name: Install tmux
   apt: pkg=tmux
 
