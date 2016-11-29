@@ -39,7 +39,7 @@
     - win_updates: category=security
 
 - name: Reboot if new kernel os_Debian
-  hosts: os_Debian
+  hosts: os_Debian&!no_auto_reboot
   gather_facts: false
   become: yes
   tasks:
