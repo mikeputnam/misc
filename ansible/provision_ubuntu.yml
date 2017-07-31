@@ -16,8 +16,9 @@
   hosts: ubuntu_desktops
   become: yes
   roles:
-     - { role: google-chrome }
-     - { role: shutter }
      - { role: gimp }
-     - { role: slack }
+     - { role: google-chrome }
      - { role: indicator-multiload }
+     - { role: shotcut }
+     - { role: shutter }
+     - { role: slack }
