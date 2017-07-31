@@ -11,6 +11,9 @@
 - name: Set EDITOR vim
   alternatives: name=editor path=/usr/bin/vim.basic
 
+- name: Set xterm default graphical terminal
+  alternatives: name=x-terminal-emulator path=/usr/bin/xterm
+
 - name: Install tmux
   apt: pkg=tmux
 
