@@ -1,0 +1,5 @@
+- apt_repository:
+    repo: 'ppa:haraldhv/shotcut'
+
+- name: Run apt update and install shotcut
+  apt: name=shotcut update_cache=yes
