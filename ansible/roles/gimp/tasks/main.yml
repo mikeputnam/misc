@@ -1,0 +1,2 @@
+- name: Install Gimp image editor
+  apt: name=gimp update_cache=yes

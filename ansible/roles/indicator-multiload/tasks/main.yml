@@ -1,0 +1,2 @@
+- name: Install indicator-multiload for easy view of Ubuntu cpu/ram/net/disk
+  apt: name=indicator-multiload update_cache=yes

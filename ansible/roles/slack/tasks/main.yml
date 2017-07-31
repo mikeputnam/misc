@@ -1,0 +1,6 @@
+- name: Place apt sources file
+  copy: src=slack.list dest=/etc/apt/sources.list.d
+
+- name: Run apt update and install
+  apt: name=slack update_cache=yes allow_unauthenticated=yes
+

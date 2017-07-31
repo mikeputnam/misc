@@ -1,6 +1,6 @@
 - name: Place apt sources file
-  file: src=google-chrome.list dest=/etc/apt/sources.list.d
+  copy: src=google-chrome.list dest=/etc/apt/sources.list.d
 
 - name: Run apt update and install
-  apt: name=google-chrome-stable update_cache=yes
+  apt: name=google-chrome-stable update_cache=yes allow_unauthenticated=yes
 
