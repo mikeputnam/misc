@@ -17,10 +17,12 @@
 - name: Update packages os_Darwin
   hosts: os_Darwin
   gather_facts: false
-  become: no
   tasks:
-    - command: softwareupdate --install --all --restart
-    - homebrew: update_homebrew=yes upgrade_all=yes
+    - name: Native updates...
+      command: softwareupdate --install --all --restart
+      become: yes
+    - name: Homebrew updates...
+      homebrew: update_homebrew=yes upgrade_all=yes
 
 - name: Update packages os_FreeBSD
   hosts: os_FreeBSD
