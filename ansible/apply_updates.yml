@@ -7,12 +7,12 @@
   tasks:
     - group_by: key=os_{{ ansible_os_family }}
 
-- name: Update packages os_Debian
-  hosts: os_Debian
-  gather_facts: False
-  become: yes
-  tasks:
-    - apt: update_cache=yes upgrade=yes
+#- name: Update packages os_Debian
+#  hosts: os_Debian
+#  gather_facts: False
+#  become: yes
+#  tasks:
+#    - apt: update_cache=yes upgrade=yes
 
 - name: Update packages os_Darwin
   hosts: os_Darwin
@@ -21,8 +21,13 @@
     - name: Native updates...
       command: softwareupdate --install --all --restart
       become: yes
+      register: native_result
+      ignore_errors: True
+      changed_when: native_result.stderr.find("No updates are available.") == -1
     - name: Homebrew updates...
       homebrew: update_homebrew=yes upgrade_all=yes
+      register: homebrew_result
+      changed_when: homebrew_result.msg.find("Homebrew packages already upgraded.") == -1
 
 - name: Update packages os_FreeBSD
   hosts: os_FreeBSD
@@ -41,7 +46,7 @@
     - win_updates: category=security
 
 - name: Reboot if new kernel os_Debian
-  hosts: os_Debian&!no_auto_reboot
+  hosts: os_Debian:&!no_auto_reboot
   gather_facts: false
   become: yes
   tasks:
