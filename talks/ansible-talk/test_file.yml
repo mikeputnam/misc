@@ -1,6 +1,0 @@
----
-- hosts: localhost
-  tasks:
-    - shell: echo whoami
-      register: foo
-    - debug: var=foo

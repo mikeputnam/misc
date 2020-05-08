@@ -1,2 +1,0 @@
-# ping scan outputting in Grepable format then arp for known devices
-nmap -sn -oG - 192.168.1.0/24 && arp | grep ether | sort

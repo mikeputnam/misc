@@ -1,1 +1,0 @@
-ssh server.appletonmakerspace.org "cat /var/motion/images/20150921/motion-215446-3-200.avi" | vlc -
